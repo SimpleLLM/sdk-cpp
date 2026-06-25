@@ -19,7 +19,7 @@ TEST_CASE("ChatCompletion JSON round-trip") {
         "id": "chatcmpl-abc123",
         "object": "chat.completion",
         "created": 1700000000,
-        "model": "gemma-3-27b",
+        "model": "Qwen3-Coder-30B-A3B-Instruct",
         "choices": [
             {
                 "index": 0,
@@ -43,7 +43,7 @@ TEST_CASE("ChatCompletion JSON round-trip") {
     CHECK(cc.id == "chatcmpl-abc123");
     CHECK(cc.object == "chat.completion");
     CHECK(cc.created == 1700000000LL);
-    CHECK(cc.model == "gemma-3-27b");
+    CHECK(cc.model == "Qwen3-Coder-30B-A3B-Instruct");
     REQUIRE(cc.choices.size() == 1);
     CHECK(cc.choices[0].index == 0);
     CHECK(cc.choices[0].message.role == "assistant");
@@ -73,7 +73,7 @@ TEST_CASE("ChatCompletionChunk JSON deserialization") {
         "id": "chatcmpl-chunk1",
         "object": "chat.completion.chunk",
         "created": 1700000001,
-        "model": "gemma-3-27b",
+        "model": "Qwen3-Coder-30B-A3B-Instruct",
         "choices": [
             {
                 "index": 0,
@@ -92,7 +92,7 @@ TEST_CASE("ChatCompletionChunk JSON deserialization") {
     CHECK(chunk.id == "chatcmpl-chunk1");
     CHECK(chunk.object == "chat.completion.chunk");
     CHECK(chunk.created == 1700000001LL);
-    CHECK(chunk.model == "gemma-3-27b");
+    CHECK(chunk.model == "Qwen3-Coder-30B-A3B-Instruct");
     REQUIRE(chunk.choices.size() == 1);
     CHECK(chunk.choices[0].index == 0);
     REQUIRE(chunk.choices[0].delta.role.has_value());
@@ -111,13 +111,13 @@ TEST_CASE("ModelList JSON deserialization") {
         "object": "list",
         "data": [
             {
-                "id": "gemma-3-27b",
+                "id": "Qwen3-Coder-30B-A3B-Instruct",
                 "object": "model",
                 "created": 1699000000,
                 "owned_by": "simplellm"
             },
             {
-                "id": "deepseek-v3",
+                "id": "DeepSeek-Chat-V3.1",
                 "object": "model",
                 "created": 1700000000,
                 "owned_by": "simplellm"
@@ -130,11 +130,11 @@ TEST_CASE("ModelList JSON deserialization") {
 
     CHECK(ml.object == "list");
     REQUIRE(ml.data.size() == 2);
-    CHECK(ml.data[0].id == "gemma-3-27b");
+    CHECK(ml.data[0].id == "Qwen3-Coder-30B-A3B-Instruct");
     CHECK(ml.data[0].object == "model");
     CHECK(ml.data[0].created == 1699000000LL);
     CHECK(ml.data[0].owned_by == "simplellm");
-    CHECK(ml.data[1].id == "deepseek-v3");
+    CHECK(ml.data[1].id == "DeepSeek-Chat-V3.1");
 }
 
 // ---------------------------------------------------------------------------
@@ -312,13 +312,13 @@ TEST_CASE("Error carries status and code") {
 
 TEST_CASE("ChatCompletionRequest to_json with optional fields") {
     ChatCompletionRequest req;
-    req.model = "gemma-3-27b";
+    req.model = "Qwen3-Coder-30B-A3B-Instruct";
     req.messages.push_back({"user", "Hello!", std::nullopt, std::nullopt, std::nullopt});
     req.temperature = 0.7;
     req.max_tokens = 256;
 
     nlohmann::json j = req;
-    CHECK(j["model"].get<std::string>() == "gemma-3-27b");
+    CHECK(j["model"].get<std::string>() == "Qwen3-Coder-30B-A3B-Instruct");
     CHECK(j["messages"][0]["role"].get<std::string>() == "user");
     CHECK(j["temperature"].get<double>() == doctest::Approx(0.7));
     CHECK(j["max_tokens"].get<int>() == 256);

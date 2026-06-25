@@ -38,7 +38,7 @@ int main() {
     simplellm::Client client("sk-your-api-key");
 
     simplellm::ChatCompletionRequest req;
-    req.model = "gemma-3-27b";
+    req.model = "Qwen3-Coder-30B-A3B-Instruct";
     req.messages.push_back({"user", "Hello!", {}, {}, {}});
     req.temperature = 0.7;
 
@@ -53,7 +53,7 @@ int main() {
 
 ```cpp
 simplellm::ChatCompletionRequest req;
-req.model = "gemma-3-27b";
+req.model = "Qwen3-Coder-30B-A3B-Instruct";
 req.messages.push_back({"user", "Tell me a story", {}, {}, {}});
 
 client.chat_completions_stream(req, [](const simplellm::ChatCompletionChunk& chunk) -> bool {
